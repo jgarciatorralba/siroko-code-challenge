@@ -1,10 +1,14 @@
 # Siroko code challenge
 
-This repository is submitted as a solution to the technical challenge proposed during the selection process for the Senior Backend Developer position @ Techpump."
+This repository is submitted as a solution to the technical challenge proposed during the selection process for the Senior Backend Developer position @ Techpump.
 
 ## Content
 
 This is a **Symfony** project for a **REST API** application, with a development environment configured in **Docker**.
+
+### Side notes
+
+- For the simplicity of the project, it is assumed that prices will always be in Euros and that there is no need to keep a record of product prices.
 
 ---
 
