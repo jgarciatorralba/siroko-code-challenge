@@ -1,5 +1,13 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# FAVICON (avoid console error)
+favicon:
+  path: /favicon.ico
+  controller:
+  methods: GET
+
+products:
+  resource: routes/products.yaml
+  prefix: /api/
+
+orders:
+  resource: routes/orders.yaml
+  prefix: /api/

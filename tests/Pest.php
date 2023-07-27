@@ -11,7 +11,16 @@
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+use App\Tests\Feature\FeatureTestCase;
+
+uses()
+    ->beforeAll(function () {
+        // Disable final in unit test scope only
+        DG\BypassFinals::enable();
+    })->in('Unit');
+
+uses(FeatureTestCase::class)
+    ->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +33,11 @@
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
+use App\Shared\Domain\Bus\Query\Response;
+
+expect()->extend('toBeQueryResponse', function (array $expectedData) {
+    return $this->toBeInstanceOf(Response::class)
+        ->and($this->value->data())->toBeArray()->toEqual($expectedData);
 });
 
 /*

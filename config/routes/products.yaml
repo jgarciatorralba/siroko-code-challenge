@@ -1,0 +1,4 @@
+products_get:
+  path: /products
+  controller: App\UI\Controller\Products\GetProductsController
+  methods: GET
