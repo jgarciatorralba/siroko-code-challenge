@@ -21,6 +21,7 @@ This is a **Symfony** project for a **REST API** application, with a development
 - Inside the development container, install packages with `composer install`.
 - Even though an empty database named **app_db** should have been created with the installation, you can still run `php bin/console doctrine:database:create` for good measure.
 - With the database created and the connection to the application successfully established, execute the existing migrations in folder `/etc/migrations` using the command `php bin/console doctrine:migrations:migrate`.
+- Populate the database with demo data using the command `php bin/console doctrine:fixtures:load`.
 
 ---
 

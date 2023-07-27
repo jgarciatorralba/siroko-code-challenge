@@ -25,7 +25,7 @@ final class ProductFixtures extends Fixture
 
         foreach (self::DATA as $key => $productData) {
             $product = $productFactory->createOne($productData);
-            $this->addReference('product:'.$key, $product);
+            $this->addReference('product:' . $key, $product);
             $manager->persist($product);
         }
 
@@ -33,7 +33,7 @@ final class ProductFixtures extends Fixture
         $products = $productFactory->createMany(number: self::NUM_PRODUCTS);
 
         foreach ($products as $key => $product) {
-            $this->addReference('product:'. $key, $product);
+            $this->addReference('product:' . $key, $product);
             $manager->persist($product);
         }
 
