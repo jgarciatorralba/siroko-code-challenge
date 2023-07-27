@@ -8,7 +8,7 @@
     >
         <id name="id" type="uuid" column="id" />
         <field name="name" type="string" column="name" length="255" />
-        <field name="price" type="decimal" precision="2" scale="2" column="price" />
+        <field name="price" type="decimal" precision="10" scale="2" column="price" />
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
