@@ -10,29 +10,25 @@ use Doctrine\Persistence\ObjectManager;
 
 final class ProductFixtures extends Fixture
 {
-    private const NUM_PRODUCTS = 10;
-
     private const DATA = [
         'socks' => ['name' => 'Socks', 'price' => 3.49],
         'sport_shoes' => ['name' => 'Sport shoes', 'price' => 75.99],
-        't_shirt' => ['name' => 'T-Shirt', 'price' => 10.20]
+        't_shirt' => ['name' => 'T-Shirt', 'price' => 14.20],
+        'helmet' => ['name' => 'Helmet', 'price' => 46.65],
+        'glasses' => ['name' => 'Sun glasses', 'price' => 29.15],
+        'watch' => ['name' => 'Watch', 'price' => 82.50],
+        'maillot' => ['name' => 'Maillot', 'price' => 49.00],
+        'leggings' => ['name' => 'Sport leggings', 'price' => 20.19],
+        'coat' => ['name' => 'Rain coat', 'price' => 189.10],
+        'hoodie' => ['name' => 'Hoodie', 'price' => 31.79]
     ];
 
     public function load(ObjectManager $manager): void
     {
-        // Add products with defined data
         $productFactory = ProductFactory::new();
 
         foreach (self::DATA as $key => $productData) {
             $product = $productFactory->createOne($productData);
-            $this->addReference('product:' . $key, $product);
-            $manager->persist($product);
-        }
-
-        // Add random users
-        $products = $productFactory->createMany(number: self::NUM_PRODUCTS);
-
-        foreach ($products as $key => $product) {
             $this->addReference('product:' . $key, $product);
             $manager->persist($product);
         }
