@@ -15,7 +15,7 @@ use App\Tests\Feature\FeatureTestCase;
 
 uses()
     ->beforeAll(function () {
-        // Disable final in unit test scope only
+        // Disable keyword "final" in unit test scope only
         DG\BypassFinals::enable();
     })->in('Unit');
 
