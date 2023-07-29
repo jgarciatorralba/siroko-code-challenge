@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\HttpFoundation\Response;
 
-it('should return a list of products', function () {
+it('should return a list of serialized products', function () {
     $client = $this->getApiClient();
     $response = $client->request('GET', '/api/products');
     $content = $response->toArray();

@@ -13,7 +13,7 @@ abstract class FeatureTestCase extends WebTestCase
 {
     protected function getApiClient(): HttpClientInterface
     {
-        $baseUrl = getenv('API_BASE_URL') ?? null;
+        $baseUrl = getenv('API_BASE_URL');
         if (!$baseUrl) {
             throw new RuntimeException('Missing "API_BASE_URL" environment variable.');
         }

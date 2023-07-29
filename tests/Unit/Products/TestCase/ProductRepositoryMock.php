@@ -16,12 +16,23 @@ final class ProductRepositoryMock extends AbstractMock
         return ProductRepository::class;
     }
 
-    public function shouldCreate(Product $product): void
+    /**
+     * @param Product[] $products
+     */
+    public function shouldFindProducts(array $products): void
     {
         $this->mock
             ->expects($this->once())
-            ->method('create')
-            ->with($product);
+            ->method('findAll')
+            ->willReturn($products);
+    }
+
+    public function shouldNotFindProducts(): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('findAll')
+            ->willReturn([]);
     }
 
     public function shouldFindProductById(Uuid $id, Product $product): void
@@ -40,5 +51,13 @@ final class ProductRepositoryMock extends AbstractMock
             ->method('findOneById')
             ->with($id)
             ->willReturn(null);
+    }
+
+    public function shouldCreate(Product $product): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('create')
+            ->with($product);
     }
 }
