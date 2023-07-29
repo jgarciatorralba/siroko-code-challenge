@@ -8,4 +8,4 @@ parameters:
         - tests/
     excludePaths:
         - tests/Pest.php
-        - tests/Feature/
+        - tests/**/**Test.php
