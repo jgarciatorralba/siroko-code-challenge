@@ -18,5 +18,4 @@ it('should return a list of products', function () {
         ->and($content[0]['price'])->toBeFloat()
         ->and(new DateTimeImmutable($content[0]['created_at']))->toBeInstanceOf(DateTimeImmutable::class)
         ->and(new DateTimeImmutable($content[0]['updated_at']))->toBeInstanceOf(DateTimeImmutable::class);
-
 });
