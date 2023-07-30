@@ -6,7 +6,6 @@ use App\Products\Application\Command\CreateProduct\CreateProductCommandHandler;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Command\CreateProduct\CreateProductCommandMother;
-
 use App\Tests\Unit\Products\TestCase\CreateProductMock;
 
 beforeEach(function () {
