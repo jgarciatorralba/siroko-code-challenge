@@ -17,8 +17,8 @@ it('should return a list of serialized products', function () {
         ->and($decodedResponse[rand(0, 9)]['id'])->toBeString()
         ->and($decodedResponse[rand(0, 9)]['name'])->toBeString()
         ->and(floatval($decodedResponse[rand(0, 9)]['price']))->toBeFloat()
-        ->and(new DateTimeImmutable($decodedResponse[0]['created_at']))
+        ->and(new DateTimeImmutable($decodedResponse[rand(0, 9)]['created_at']))
             ->toBeInstanceOf(DateTimeImmutable::class)
-        ->and(new DateTimeImmutable($decodedResponse[0]['updated_at']))
+        ->and(new DateTimeImmutable($decodedResponse[rand(0, 9)]['updated_at']))
             ->toBeInstanceOf(DateTimeImmutable::class);
 });
