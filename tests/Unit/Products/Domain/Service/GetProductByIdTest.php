@@ -17,7 +17,9 @@ it('should return a product', function () {
     $product = Product::create(
         id: $id,
         name: 'test-product',
-        price: 1.23
+        price: 1.23,
+        createdAt: new DateTimeImmutable(),
+        updatedAt: new DateTimeImmutable()
     );
 
     $this->productRepositoryMock->shouldFindProductById($id, $product);

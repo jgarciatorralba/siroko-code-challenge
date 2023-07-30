@@ -14,10 +14,14 @@ beforeEach(function () {
 });
 
 it('should find a product given its id', function () {
+    $now = new DateTimeImmutable();
+
     $product = Product::create(
         id: Uuid::random(),
         name: 'test-product',
-        price: 1.23
+        price: 1.23,
+        createdAt: $now,
+        updatedAt: $now
     );
 
     $query = GetProductByIdQueryMother::create(

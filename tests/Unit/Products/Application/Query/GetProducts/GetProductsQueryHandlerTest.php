@@ -14,21 +14,29 @@ beforeEach(function () {
 });
 
 it('should return an array of normalized products', function () {
+    $now = new DateTimeImmutable();
+
     $products = [
         Product::create(
             Uuid::random(),
             'test-product-1',
-            10.00
+            10.00,
+            $now,
+            $now
         ),
         Product::create(
             Uuid::random(),
             'test-product-2',
-            55.55
+            55.55,
+            $now,
+            $now
         ),
         Product::create(
             Uuid::random(),
             'test-product-3',
-            1.23
+            1.23,
+            $now,
+            $now
         )
     ];
 
