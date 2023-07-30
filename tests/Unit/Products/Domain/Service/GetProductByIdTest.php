@@ -30,7 +30,7 @@ it('should return a product', function () {
     expect($result)->toEqual($product);
 });
 
-it('should throw an exception if the product is not found', function () {
+it('should throw an exception if a product is not found', function () {
     $id = Uuid::random();
 
     $this->productRepositoryMock->shouldNotFindProductById($id);
