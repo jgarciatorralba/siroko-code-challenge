@@ -29,7 +29,7 @@ describe('stringToDate', function () {
             ->toBeInstanceOf(DateTimeInterface::class);
     });
 
-    it('should throw an exception with an invalid string', function () {
+    it('should throw an exception when using an invalid string', function () {
         $string = 'invalid-string';
 
         Utils::stringToDate($string);
