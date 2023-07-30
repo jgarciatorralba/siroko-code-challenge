@@ -4,40 +4,40 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Aggregate;
 
-use DateTimeInterface;
+use DateTimeImmutable;
 
 trait Timestampable
 {
-    private DateTimeInterface $createdAt;
-    private DateTimeInterface $updatedAt;
-    private ?DateTimeInterface $deletedAt = null;
+    private DateTimeImmutable $createdAt;
+    private DateTimeImmutable $updatedAt;
+    private ?DateTimeImmutable $deletedAt = null;
 
-    public function createdAt(): DateTimeInterface
+    public function createdAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function updatedAt(): DateTimeInterface
+    public function updatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function deletedAt(): ?DateTimeInterface
+    public function deletedAt(): ?DateTimeImmutable
     {
         return $this->deletedAt;
     }
 
-    public function updateCreatedAt(DateTimeInterface $createdAt): void
+    public function updateCreatedAt(DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function updateUpdatedAt(DateTimeInterface $updatedAt): void
+    public function updateUpdatedAt(DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
 
-    public function updateDeletedAt(?DateTimeInterface $deletedAt): void
+    public function updateDeletedAt(?DateTimeImmutable $deletedAt): void
     {
         $this->deletedAt = $deletedAt;
     }
