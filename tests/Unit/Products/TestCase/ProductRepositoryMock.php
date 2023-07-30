@@ -53,7 +53,7 @@ final class ProductRepositoryMock extends AbstractMock
             ->willReturn(null);
     }
 
-    public function shouldCreate(Product $product): void
+    public function shouldCreateProduct(Product $product): void
     {
         $this->mock
             ->expects($this->once())
