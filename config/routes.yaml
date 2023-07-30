@@ -8,6 +8,6 @@ products:
   resource: routes/products.yaml
   prefix: /api/
 
-orders:
-  resource: routes/orders.yaml
+carts:
+  resource: routes/carts.yaml
   prefix: /api/

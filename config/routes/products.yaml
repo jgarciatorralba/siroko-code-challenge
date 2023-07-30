@@ -2,3 +2,10 @@ products_get:
   path: /products
   controller: App\UI\Controller\Products\GetProductsController
   methods: GET
+
+products_get_by_id:
+  path: /products/{id}
+  controller: App\UI\Controller\Products\GetProductByIdController
+  methods: GET
+  requirements:
+    id: '%routing.uuid%'
