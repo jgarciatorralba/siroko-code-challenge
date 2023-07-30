@@ -21,7 +21,9 @@ final class CreateProductCommandHandler implements CommandHandler
         $product = Product::create(
             id: Uuid::fromString($command->id()),
             name: $command->name(),
-            price: $command->price()
+            price: $command->price(),
+            createdAt: $command->createdAt(),
+            updatedAt: $command->updatedAt()
         );
 
         $this->createProduct->__invoke($product);

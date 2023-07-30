@@ -28,14 +28,16 @@ class Product extends AggregateRoot
     public static function create(
         Uuid $id,
         string $name,
-        float $price
+        float $price,
+        DateTimeImmutable $createdAt,
+        DateTimeImmutable $updatedAt
     ): self {
         return new self(
             id: $id,
             name: $name,
             price: $price,
-            createdAt: new DateTimeImmutable(),
-            updatedAt: new DateTimeImmutable()
+            createdAt: $createdAt,
+            updatedAt: $updatedAt
         );
     }
 
