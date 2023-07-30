@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Fixture\DataFixtures;
 
+use App\Shared\Domain\ValueObject\Uuid;
 use App\UI\Fixture\Factory\ProductFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -28,6 +29,9 @@ final class ProductFixtures extends Fixture
         $productFactory = ProductFactory::new();
 
         foreach (self::DATA as $key => $productData) {
+            if ($key === 'socks') {
+                $productData['id'] = Uuid::fromString('df7e424d-26e8-46c9-8289-c75d7da1900c');
+            }
             $product = $productFactory->createOne($productData);
             $this->addReference('product:' . $key, $product);
             $manager->persist($product);
