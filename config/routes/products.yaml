@@ -9,3 +9,8 @@ products_get_by_id:
   methods: GET
   requirements:
     id: '%routing.uuid%'
+
+products_create:
+  path: /products
+  controller: App\UI\Controller\Products\CreateProductController
+  methods: POST
