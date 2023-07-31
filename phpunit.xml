@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+>
+    <php>
+        <server name="KERNEL_CLASS" value="App\Kernel" />
+        <env name="API_BASE_URL" value="http://nginx:80" />
+        <env name="DATABASE_NAME" value="app_db" />
+        <env name="DATABASE_HOST" value="db" />
+        <env name="DATABASE_USER" value="user" />
+        <env name="DATABASE_PASSWORD" value="password" />
+        <env name="DATABASE_PORT" value="5432" />
+        <env name="DATABASE_CHARSET" value="UTF8" />
+        <env name="DATABASE_DRIVER" value="pdo_pgsql" />
+        <env name="DATABASE_SERVER_VERSION" value="15" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage/>
+    <source>
+        <include>
+            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
+</phpunit>
