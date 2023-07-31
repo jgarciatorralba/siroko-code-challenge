@@ -27,7 +27,7 @@ it('should return a serialized product given its id', function () {
 });
 
 it('should throw an exception if a product is not found', function () {
-    $id = Uuid::random();
+    $id = Uuid::random()->value();
 
     $client = $this->getApiClient();
     $response = $client->request('GET', "/api/products/$id");
