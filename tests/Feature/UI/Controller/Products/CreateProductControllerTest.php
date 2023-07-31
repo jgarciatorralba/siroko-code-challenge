@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Products\Domain\Product;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,6 +21,11 @@ it('should create a product and return its id', function () {
         ->and($decodedResponse)->toBeArray()
         ->and($decodedResponse)->toHaveCount(1)
         ->and($decodedResponse)->toHaveKey('id');
+
+    $product = $this->find(Product::class, $decodedResponse['id']);
+    if ($product) {
+        $this->remove($product);
+    }
 });
 
 it('should throw a validation error when the name is empty', function () {
@@ -45,7 +51,7 @@ it('should throw a validation error when the name is empty', function () {
         ]);
 })->throws(ClientException::class);
 
-it('should throw a validation error when price is missing', function () {
+it('should throw a validation error when the price is missing', function () {
     $client = $this->getApiClient();
     $response = $client->request('POST', '/api/products', [
         'body' => json_encode([
