@@ -7,7 +7,7 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 it('should return a serialized product given its id', function () {
-    $id = Uuid::fromString('df7e424d-26e8-46c9-8289-c75d7da1900c');
+    $id = 'df7e424d-26e8-46c9-8289-c75d7da1900c';
 
     $client = $this->getApiClient();
     $response = $client->request('GET', "/api/products/$id");
