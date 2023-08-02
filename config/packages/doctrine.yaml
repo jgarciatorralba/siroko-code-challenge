@@ -24,7 +24,7 @@ doctrine:
     mappings:
       Product:
         is_bundle: false
-        dir: '%kernel.project_dir%/src/Products/Infrastructure/Persistence/Doctrine/mappings'
+        dir: "%kernel.project_dir%/src/Products/Infrastructure/Persistence/Doctrine/mappings"
         prefix: 'App\Products\Domain'
         alias: App\Products\Domain
         type: xml
