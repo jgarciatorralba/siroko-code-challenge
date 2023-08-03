@@ -14,3 +14,10 @@ products_create:
   path: /products
   controller: App\UI\Controller\Products\CreateProductController
   methods: POST
+
+products_delete:
+  path: /products/{id}
+  controller: App\UI\Controller\Products\DeleteProductByIdController
+  methods: DELETE
+  requirements:
+    id: '%routing.uuid%'
