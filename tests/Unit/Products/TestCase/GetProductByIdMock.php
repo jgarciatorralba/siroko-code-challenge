@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Products\TestCase;
 
+use App\Products\Domain\Exception\ProductNotFoundException;
 use App\Products\Domain\Product;
 use App\Products\Domain\Service\GetProductById;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -23,5 +24,14 @@ final class GetProductByIdMock extends AbstractMock
             ->method('__invoke')
             ->with($id)
             ->willReturn($product);
+    }
+
+    public function shouldThrowException(Uuid $id): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with($id)
+            ->willThrowException(new ProductNotFoundException($id));
     }
 }

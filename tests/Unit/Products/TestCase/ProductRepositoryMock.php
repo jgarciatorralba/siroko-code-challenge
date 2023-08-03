@@ -60,4 +60,12 @@ final class ProductRepositoryMock extends AbstractMock
             ->method('create')
             ->with($product);
     }
+
+    public function shouldDeleteProduct(Product $product): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('delete')
+            ->with($product);
+    }
 }
