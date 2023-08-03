@@ -16,7 +16,7 @@ it('should create a product', function () {
     $now = new DateTimeImmutable();
     $product = Product::create(
         Uuid::random(),
-        'test-product-create',
+        'create-product-unit-test',
         10.10,
         $now,
         $now

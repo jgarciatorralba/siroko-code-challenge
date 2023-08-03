@@ -2,7 +2,30 @@
 
 declare(strict_types=1);
 
+use App\Products\Domain\Product;
+use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\Response;
+
+beforeEach(function () {
+    $testProduct = new Product(
+        Uuid::random(),
+        'test-product-create',
+        3.21,
+        new DateTimeImmutable(),
+        new DateTimeImmutable()
+    );
+
+    $this->persist($testProduct);
+});
+
+afterEach(function () {
+    $testProduct = $this->repository(Product::class)
+        ->findOneBy(['name' => 'test-product-create']);
+
+    if ($testProduct) {
+        $this->remove($testProduct);
+    }
+});
 
 describe('GetProductsController', function () {
     it('should return a list of serialized products', function () {

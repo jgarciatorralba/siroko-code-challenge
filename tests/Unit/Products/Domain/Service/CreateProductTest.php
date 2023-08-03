@@ -11,10 +11,10 @@ beforeEach(function () {
     $this->productRepositoryMock = new ProductRepositoryMock($this);
 });
 
-it('should create a product', function () {
+it('should return a new product', function () {
     $product = Product::create(
         Uuid::random(),
-        'test-product-create',
+        'create-product-unit-test',
         10.00,
         new DateTimeImmutable(),
         new DateTimeImmutable()

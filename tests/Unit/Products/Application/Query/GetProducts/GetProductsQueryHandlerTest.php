@@ -19,21 +19,21 @@ it('should return an array of normalized products', function () {
     $products = [
         Product::create(
             Uuid::random(),
-            'test-product-1',
+            'get-products-unit-test-1',
             10.00,
             $now,
             $now
         ),
         Product::create(
             Uuid::random(),
-            'test-product-2',
+            'get-products-unit-test-2',
             55.55,
             $now,
             $now
         ),
         Product::create(
             Uuid::random(),
-            'test-product-3',
+            'get-products-unit-test-3',
             1.23,
             $now,
             $now

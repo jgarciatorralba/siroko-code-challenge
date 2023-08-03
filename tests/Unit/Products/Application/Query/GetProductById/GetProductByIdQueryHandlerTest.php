@@ -18,7 +18,7 @@ it('should find a product given its id', function () {
 
     $product = Product::create(
         id: Uuid::random(),
-        name: 'test-product',
+        name: 'get-product-unit-test',
         price: 1.23,
         createdAt: $now,
         updatedAt: $now

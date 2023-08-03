@@ -16,7 +16,7 @@ it('should return a product', function () {
     $id = Uuid::random();
     $product = Product::create(
         id: $id,
-        name: 'test-product',
+        name: 'get-product-unit-test',
         price: 1.23,
         createdAt: new DateTimeImmutable(),
         updatedAt: new DateTimeImmutable()
