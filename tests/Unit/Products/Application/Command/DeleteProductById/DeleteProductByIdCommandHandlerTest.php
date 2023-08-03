@@ -36,7 +36,7 @@ it('should delete a product', function () {
     $handler->__invoke($command);
 });
 
-it('should throw an exception ehen a product is not found', function () {
+it('should throw an exception if a product is not found', function () {
     $id = Uuid::random();
     $command = DeleteProductByIdCommandMother::create($id->value());
 
