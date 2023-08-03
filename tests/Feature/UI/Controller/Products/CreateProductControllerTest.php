@@ -7,11 +7,7 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 afterEach(function () {
-    $testProduct = $this->repository(Product::class)
-        ->findOneBy(['name' => 'test-product-create']);
-    if ($testProduct) {
-        $this->remove($testProduct);
-    }
+    $this->clearDatabase();
 });
 
 describe('CreateProductController', function () {

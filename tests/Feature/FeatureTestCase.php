@@ -90,7 +90,7 @@ abstract class FeatureTestCase extends WebTestCase
 
         $connection = $entityManager->getConnection();
         foreach ($this->tables() as $table) {
-            $connection->query(sprintf('DELETE FROM `%s`;', $table));
+            $connection->query(sprintf('DELETE FROM "%s";', $table));
         }
 
         $entityManager->clear();

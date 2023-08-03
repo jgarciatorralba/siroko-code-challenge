@@ -20,12 +20,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    $testProduct = $this->repository(Product::class)
-        ->findOneBy(['name' => 'test-product-create']);
-
-    if ($testProduct) {
-        $this->remove($testProduct);
-    }
+    $this->clearDatabase();
 });
 
 describe('GetProductByIdController', function () {
