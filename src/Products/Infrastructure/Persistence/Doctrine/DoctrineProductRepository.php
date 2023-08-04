@@ -24,9 +24,6 @@ class DoctrineProductRepository extends DoctrineRepository implements ProductRep
 
     public function update(Product $product): void
     {
-        $now = new DateTimeImmutable();
-        $product->updateUpdatedAt($now);
-
         $this->updateEntity();
     }
 

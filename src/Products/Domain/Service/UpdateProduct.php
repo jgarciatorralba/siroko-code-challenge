@@ -6,6 +6,7 @@ namespace App\Products\Domain\Service;
 
 use App\Products\Domain\Contract\ProductRepository;
 use App\Products\Domain\Product;
+use DateTimeImmutable;
 
 final class UpdateProduct
 {
@@ -15,7 +16,7 @@ final class UpdateProduct
     }
 
     /**
-     * @param array <string, string|float|null> $updatedData
+     * @param array <string, string|float|DateTimeImmutable|null> $updatedData
      */
     public function __invoke(Product $product, array $updatedData): void
     {
@@ -31,6 +32,7 @@ final class UpdateProduct
         }
 
         if ($hasChanged) {
+            $product->updateUpdatedAt($updatedData['updatedAt']);
             $this->productRepository->update($product);
         }
     }
