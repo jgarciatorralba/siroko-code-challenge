@@ -13,7 +13,7 @@ beforeEach(function () {
     $this->getProductById = new GetProductByIdMock($this);
 });
 
-it('should find a product given its id', function () {
+it('should return a normalized product given its id', function () {
     $now = new DateTimeImmutable();
 
     $product = Product::create(

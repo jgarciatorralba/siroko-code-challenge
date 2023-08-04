@@ -11,7 +11,7 @@ beforeEach(function () {
     $this->productRepositoryMock = new ProductRepositoryMock($this);
 });
 
-it('should return a new product', function () {
+it('should create a product', function () {
     $product = Product::create(
         Uuid::random(),
         'create-product-unit-test',

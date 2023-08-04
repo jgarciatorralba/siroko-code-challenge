@@ -11,7 +11,7 @@ beforeEach(function () {
     $this->productRepositoryMock = new ProductRepositoryMock($this);
 });
 
-it('should delete a product and not return anything', function () {
+it('should delete a product', function () {
     $id = Uuid::random();
     $product = Product::create(
         id: $id,
