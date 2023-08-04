@@ -29,11 +29,7 @@ class DoctrineProductRepository extends DoctrineRepository implements ProductRep
 
     public function delete(Product $product): void
     {
-        $now = new DateTimeImmutable();
-
-        $product->updateUpdatedAt($now);
-        $product->updateDeletedAt($now);
-
+        $product->updateDeletedAt(new DateTimeImmutable());
         $this->updateEntity();
     }
 
