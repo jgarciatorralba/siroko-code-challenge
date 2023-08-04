@@ -67,7 +67,7 @@ class Product extends AggregateRoot
     }
 
     /**
-     * @return array<string, string|array<mixed>>
+     * @return array<string, string|float|DateTimeImmutable>
      */
     public function toArray(bool $isNestedArray = false): array
     {
