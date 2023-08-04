@@ -15,6 +15,11 @@ products_create:
   controller: App\UI\Controller\Products\CreateProductController
   methods: POST
 
+products_update:
+  path: /products
+  controller: App\UI\Controller\Products\UpdateProductController
+  methods: PUT
+
 products_delete:
   path: /products/{id}
   controller: App\UI\Controller\Products\DeleteProductByIdController
