@@ -61,6 +61,14 @@ final class ProductRepositoryMock extends AbstractMock
             ->with($product);
     }
 
+    public function shouldUpdateProduct(Product $product): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('update')
+            ->with($product);
+    }
+
     public function shouldDeleteProduct(Product $product): void
     {
         $this->mock
