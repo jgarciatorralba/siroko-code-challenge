@@ -24,7 +24,7 @@ class Cart extends AggregateRoot
     public function __construct(
         private Uuid $id,
         private ?float $subtotal,
-        private ?DateTimeImmutable $confirmedAt,
+        private bool $isConfirmed,
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt
     ) {
@@ -42,7 +42,7 @@ class Cart extends AggregateRoot
         return new self(
             id: $id,
             subtotal: null,
-            confirmedAt: null,
+            isConfirmed: false,
             createdAt: $createdAt,
             updatedAt: $updatedAt
         );
@@ -58,9 +58,9 @@ class Cart extends AggregateRoot
         return $this->subtotal;
     }
 
-    public function confirmedAt(): ?DateTimeImmutable
+    public function isConfirmed(): bool
     {
-        return $this->confirmedAt;
+        return $this->isConfirmed;
     }
 
     public function updateSubtotal(?float $subtotal): void
@@ -68,9 +68,9 @@ class Cart extends AggregateRoot
         $this->subtotal = $subtotal;
     }
 
-    public function updateConfirmedAt(?DateTimeImmutable $confirmedAt): void
+    public function updateIsConfirmed(bool $isConfirmed): void
     {
-        $this->confirmedAt = $confirmedAt;
+        $this->isConfirmed = $isConfirmed;
     }
 
     /**
@@ -110,7 +110,7 @@ class Cart extends AggregateRoot
             'items' => [],
             'num_products' => 0,
             'subtotal' => $this->subtotal,
-            'confirmed_at' => !empty($this->confirmedAt) ? Utils::dateToString($this->confirmedAt) : null,
+            'is_confirmed' => $this->isConfirmed,
             'created_at' => Utils::dateToString($this->createdAt),
             'updated_at' => Utils::dateToString($this->updatedAt)
         ];
