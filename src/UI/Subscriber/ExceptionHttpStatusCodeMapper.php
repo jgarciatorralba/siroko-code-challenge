@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Subscriber;
 
+use App\Carts\Domain\Exception\CartItemNotFoundException;
+use App\Carts\Domain\Exception\CartNotFoundException;
 use App\Products\Domain\Exception\ProductNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +15,9 @@ final class ExceptionHttpStatusCodeMapper
         // Products
         ProductNotFoundException::class => Response::HTTP_NOT_FOUND,
 
-        // Orders
+        // Carts
+        CartNotFoundException::class => Response::HTTP_NOT_FOUND,
+        CartItemNotFoundException::class => Response::HTTP_NOT_FOUND,
     ];
 
     public function getStatusCodeFor(string $exceptionClass): ?int

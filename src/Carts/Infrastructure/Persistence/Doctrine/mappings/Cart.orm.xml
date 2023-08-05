@@ -1,0 +1,29 @@
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+>
+    <entity
+        name="App\Carts\Domain\Cart"
+        table="carts"
+    >
+        <id name="id" type="uuid" column="id" />
+        <field name="subtotal" type="decimal" precision="10" scale="2" column="subtotal" nullable="true" />
+        <field name="confirmedAt" type="datetime_immutable" column="confirmed_at" nullable="true" />
+        <field name="createdAt" type="datetime_immutable" column="created_at" />
+        <field name="updatedAt" type="datetime_immutable" column="updated_at" />
+        <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
+
+        <one-to-many
+            field="cartItems"
+            target-entity="App\Carts\Domain\CartItem"
+            mapped-by="cart"
+        >
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC" />
+            </order-by>
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>
