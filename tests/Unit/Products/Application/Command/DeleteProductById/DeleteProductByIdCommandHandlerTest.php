@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Products\Application\Command\DeleteProductById\DeleteProductByIdCommandHandler;
+use App\Products\Domain\Exception\ProductInUseException;
 use App\Products\Domain\Exception\ProductNotFoundException;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -48,3 +49,24 @@ it('should throw an exception if a product is not found', function () {
     );
     $handler->__invoke($command);
 })->throws(ProductNotFoundException::class);
+
+it('should throw an exception if a product is referenced by a cart item', function () {
+    $now = new DateTimeImmutable();
+    $product = Product::create(
+        Uuid::random(),
+        'delete-product-unit-test',
+        10.10,
+        $now,
+        $now
+    );
+    $command = DeleteProductByIdCommandMother::createFromProduct($product);
+
+    $this->getProductByIdMock->shouldReturnProduct($product->id(), $product);
+    $this->deleteProductMock->shouldThrowException($product);
+
+    $handler = new DeleteProductByIdCommandHandler(
+        getProductById: $this->getProductByIdMock->getMock(),
+        deleteProduct: $this->deleteProductMock->getMock()
+    );
+    $handler->__invoke($command);
+})->throws(ProductInUseException::class);
