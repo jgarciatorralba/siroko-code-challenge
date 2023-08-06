@@ -100,6 +100,17 @@ class Cart extends AggregateRoot
         return null;
     }
 
+    public function calculateSubtotal(): float
+    {
+        $subtotal = 0;
+        /** @var CartItem $item */
+        foreach ($this->items() as $item) {
+            $subtotal += $item->quantity() * $item->product()->price();
+        }
+
+        return $subtotal;
+    }
+
     /**
      * @return array<string, mixed>
      */
