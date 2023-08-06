@@ -12,5 +12,11 @@
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
+
+        <one-to-many
+            field="cartItems"
+            target-entity="App\Carts\Domain\CartItem"
+            mapped-by="product"
+        />
     </entity>
 </doctrine-mapping>
