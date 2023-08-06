@@ -76,4 +76,12 @@ final class ProductRepositoryMock extends AbstractMock
             ->method('delete')
             ->with($product);
     }
+
+    public function shouldNotDeleteProduct(Product $product): void
+    {
+        $this->mock
+            ->expects($this->never())
+            ->method('delete')
+            ->with($product);
+    }
 }

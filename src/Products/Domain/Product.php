@@ -84,6 +84,13 @@ class Product extends AggregateRoot
         return $this->cartItems;
     }
 
+    public function addCartItem(CartItem $item): void
+    {
+        if (!$this->cartItems->contains($item)) {
+            $this->cartItems->add($item);
+        }
+    }
+
     /**
      * @return array<string, string|float|DateTimeImmutable>
      */

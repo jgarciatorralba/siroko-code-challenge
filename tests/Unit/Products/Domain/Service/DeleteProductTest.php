@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Carts\Domain\Cart;
+use App\Carts\Domain\CartItem;
+use App\Products\Domain\Exception\ProductInUseException;
 use App\Products\Domain\Product;
 use App\Products\Domain\Service\DeleteProduct;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -30,3 +33,39 @@ it('should delete a product', function () {
 
     expect($result)->toBeEmpty();
 });
+
+it('should throw an exception if a product is referenced by a cart item', function () {
+    $now = new DateTimeImmutable();
+    $product = Product::create(
+        Uuid::random(),
+        'delete-product-unit-test',
+        10.10,
+        $now,
+        $now
+    );
+
+    $cart = new Cart(
+        Uuid::random(),
+        null,
+        false,
+        new DateTimeImmutable(),
+        new DateTimeImmutable()
+    );
+
+    $cartItem = new CartItem(
+        Uuid::random(),
+        $cart,
+        $product,
+        1,
+        new DateTimeImmutable(),
+        new DateTimeImmutable()
+    );
+    $product->addCartItem($cartItem);
+
+    $this->productRepositoryMock->shouldNotDeleteProduct($product);
+
+    $service = new DeleteProduct(
+        productRepository: $this->productRepositoryMock->getMock()
+    );
+    $service->__invoke($product);
+})->throws(ProductInUseException::class);
