@@ -18,7 +18,7 @@
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
 
         <one-to-many
-            field="cartItems"
+            field="items"
             target-entity="App\Carts\Domain\CartItem"
             mapped-by="cart"
         >
