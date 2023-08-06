@@ -28,6 +28,18 @@ doctrine:
         prefix: 'App\Products\Domain'
         alias: App\Products\Domain
         type: xml
+      Cart:
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Carts/Infrastructure/Persistence/Doctrine/mappings"
+        prefix: 'App\Carts\Domain'
+        alias: App\Carts\Domain
+        type: xml
+      CartItem:
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Carts/Infrastructure/Persistence/Doctrine/mappings"
+        prefix: 'App\Carts\Domain'
+        alias: App\Carts\Domain
+        type: xml
     filters:
       softdeleteable:
         class: App\Shared\Infrastructure\Persistence\Doctrine\Filter\SoftDeleteableFilter
