@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Carts\Domain\Cart;
+use App\Carts\Domain\CartItem;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\HttpClient\Exception\ClientException;
@@ -49,6 +51,43 @@ describe('DeleteProductByIdController', function () {
             ->and($decodedResponse)->toBe([
                 'code' => 'product_not_found',
                 'error' => "Product with id '$id' could not be found."
+            ]);
+    })->throws(ClientException::class);
+
+    it('should throw an exception if a product is referenced by a cart item', function () {
+        $testProduct = $this->repository(Product::class)
+            ->findOneBy(['name' => 'test-product-delete']);
+        $id = $testProduct->id()->value();
+
+        $testCart = new Cart(
+            Uuid::random(),
+            null,
+            false,
+            new DateTimeImmutable(),
+            new DateTimeImmutable()
+        );
+        $this->persist($testCart);
+
+        $testCartItem = new CartItem(
+            Uuid::random(),
+            $testCart,
+            $testProduct,
+            1,
+            new DateTimeImmutable(),
+            new DateTimeImmutable()
+        );
+        $this->persist($testCartItem);
+
+        $client = $this->getApiClient();
+        $response = $client->request('DELETE', "/api/products/$id");
+        $decodedResponse = $response->toArray();
+
+        expect($response->getStatusCode())->toEqual(Response::HTTP_CONFLICT)
+            ->and($response->getContent())->toBeJson()
+            ->and($decodedResponse)->toBeArray()
+            ->and($decodedResponse)->toBe([
+                'code' => 'product_in_use',
+                'error' => "Product with id '$id' is being referenced by cart items."
             ]);
     })->throws(ClientException::class);
 });
