@@ -4,15 +4,23 @@ declare(strict_types=1);
 
 namespace App\Products\Domain;
 
+use App\Carts\Domain\CartItem;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Aggregate\Timestampable;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Product extends AggregateRoot
 {
     use Timestampable;
+
+    /**
+     * @var Collection<int, CartItem>
+     */
+    private Collection $cartItems;
 
     public function __construct(
         private Uuid $id,
@@ -21,6 +29,8 @@ class Product extends AggregateRoot
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt
     ) {
+        $this->cartItems = new ArrayCollection();
+
         $this->updateCreatedAt($createdAt);
         $this->updateUpdatedAt($updatedAt);
     }
@@ -64,6 +74,14 @@ class Product extends AggregateRoot
     public function updatePrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return Collection<int, CartItem>
+     */
+    public function cartItems(): Collection
+    {
+        return $this->cartItems;
     }
 
     /**

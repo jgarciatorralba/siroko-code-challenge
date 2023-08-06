@@ -6,6 +6,7 @@ namespace App\UI\Subscriber;
 
 use App\Carts\Domain\Exception\CartItemNotFoundException;
 use App\Carts\Domain\Exception\CartNotFoundException;
+use App\Products\Domain\Exception\ProductInUseException;
 use App\Products\Domain\Exception\ProductNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,6 +15,7 @@ final class ExceptionHttpStatusCodeMapper
     private const EXCEPTIONS = [
         // Products
         ProductNotFoundException::class => Response::HTTP_NOT_FOUND,
+        ProductInUseException::class => Response::HTTP_CONFLICT,
 
         // Carts
         CartNotFoundException::class => Response::HTTP_NOT_FOUND,
