@@ -119,7 +119,7 @@ class Cart extends AggregateRoot
         $cartArray = [
             'id' => $this->id->value(),
             'items' => [],
-            'num_products' => 0,
+            'product_count' => 0,
             'subtotal' => $this->subtotal,
             'is_confirmed' => $this->isConfirmed,
             'created_at' => Utils::dateToString($this->createdAt),
@@ -127,13 +127,13 @@ class Cart extends AggregateRoot
         ];
 
         if ($isNestedArray) {
-            unset($cartArray['items'], $cartArray['num_products']);
+            unset($cartArray['items'], $cartArray['product_count']);
         } else {
             $cartArray['items'] = array_map(
                 fn (CartItem $item) => $item->toArray(true),
                 $this->items->toArray()
             );
-            $cartArray['num_products'] = array_reduce(
+            $cartArray['product_count'] = array_reduce(
                 $this->items->toArray(),
                 function (int $carry, CartItem $item) {
                     $carry += $item->quantity();
