@@ -2,3 +2,10 @@ carts_get:
   path: /carts
   controller: App\UI\Controller\Carts\GetCartsController
   methods: GET
+
+carts_get_by_id:
+  path: /carts/{id}
+  controller: App\UI\Controller\Carts\GetCartByIdController
+  methods: GET
+  requirements:
+    id: '%routing.uuid%'
