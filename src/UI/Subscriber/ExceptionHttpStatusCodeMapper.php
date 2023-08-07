@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\UI\Subscriber;
 
-use App\Carts\Domain\Exception\CartItemNotFoundException;
 use App\Carts\Domain\Exception\CartNotFoundException;
 use App\Products\Domain\Exception\ProductInUseException;
 use App\Products\Domain\Exception\ProductNotFoundException;
