@@ -18,8 +18,7 @@ final class ExceptionHttpStatusCodeMapper
         ProductInUseException::class => Response::HTTP_CONFLICT,
 
         // Carts
-        CartNotFoundException::class => Response::HTTP_NOT_FOUND,
-        CartItemNotFoundException::class => Response::HTTP_NOT_FOUND,
+        CartNotFoundException::class => Response::HTTP_NOT_FOUND
     ];
 
     public function getStatusCodeFor(string $exceptionClass): ?int
