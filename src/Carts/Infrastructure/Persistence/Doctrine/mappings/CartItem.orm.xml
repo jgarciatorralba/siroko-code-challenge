@@ -31,5 +31,9 @@
         >
             <join-column name="product_id" referenced-column-name="id" />
         </many-to-one>
+
+        <unique-constraints>
+            <unique-constraint columns="cart_id,product_id" />
+        </unique-constraints>
     </entity>
 </doctrine-mapping>
