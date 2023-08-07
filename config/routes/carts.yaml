@@ -1,0 +1,4 @@
+carts_get:
+  path: /carts
+  controller: App\UI\Controller\Carts\GetCartsController
+  methods: GET
