@@ -27,6 +27,7 @@ final class ConfirmCart
         }
 
         $cart->updateIsConfirmed(true);
+        $cart->updateSubtotal($cart->calculateSubtotal());
         $cart->updateUpdatedAt(new DateTimeImmutable());
 
         $this->cartRepository->update($cart);
