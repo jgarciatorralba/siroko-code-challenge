@@ -9,3 +9,17 @@ carts_get_by_id:
   methods: GET
   requirements:
     id: '%routing.uuid%'
+
+carts_confirm:
+  path: /carts/{id}/confirm
+  controller: App\UI\Controller\Carts\ConfirmCartByIdController
+  methods: PUT
+  requirements:
+    id: '%routing.uuid%'
+
+carts_delete:
+  path: /carts/{id}
+  controller: App\UI\Controller\Carts\DeleteCartByIdController
+  methods: DELETE
+  requirements:
+    id: '%routing.uuid%'
