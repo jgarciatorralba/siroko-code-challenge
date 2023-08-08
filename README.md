@@ -31,7 +31,7 @@ This is a **Symfony** project for a **REST API** application, with a development
 ## Tests
 
 - Run the complete test suite by executing the command: `php ./vendor/bin/pest`
-  - **Important**: make sure to clear Symfony's testing cache by running `sf cache:clear --env=test` before executing the tests. Also note that the feature tests will clear the database after running, so you will have to populate the database again with `sf doctrine:fixtures:load`.
+  - **Important**: make sure to clear Symfony's testing cache by running `sf cache:clear --env=test` before executing the tests. Also note that the feature tests will clear the database after running, so you will have to populate it again with `sf doctrine:fixtures:load`.
 
 ---
 
