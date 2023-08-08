@@ -29,7 +29,13 @@ class DoctrineCartRepository extends DoctrineRepository implements CartRepositor
 
     public function delete(Cart $cart): void
     {
-        $cart->updateDeletedAt(new DateTimeImmutable());
+        $now = new DateTimeImmutable();
+
+        $cart->updateDeletedAt($now);
+        foreach ($cart->items() as $item) {
+            $item->updateDeletedAt($now);
+        }
+
         $this->updateEntity();
     }
 
