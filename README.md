@@ -2,6 +2,8 @@
 
 This repository is submitted as a solution to the technical challenge proposed during the selection process for the Senior Backend Developer position @ Techpump.
 
+---
+
 ## Content
 
 This is a **Symfony** project for a **REST API** application, with a development environment configured in **Docker**.
@@ -37,7 +39,7 @@ This is a **Symfony** project for a **REST API** application, with a development
 
 - Run _Pest_ tests: `php ./vendor/bin/pest`
 - Run _CodeSniffer_ analysis: `php ./vendor/bin/phpcs <filename|foldername>`
-- Correct previously detected coding standard violations: `php ./vendor/bin/phpcbf <filename|foldername>`
+  - Correct detected coding standard violations: `php ./vendor/bin/phpcbf <filename|foldername>`
 - Run _PHPStan_ analysis: `php ./vendor/bin/phpstan analyse <foldernames>`
 - Delete existing database: `sf doctrine:database:drop --force`
 
