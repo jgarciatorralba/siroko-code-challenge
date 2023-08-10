@@ -45,6 +45,7 @@ describe('ConfirmCartByIdController', function () {
             $testCart,
             $testProduct,
             1,
+            null,
             new DateTimeImmutable(),
             new DateTimeImmutable()
         );
@@ -97,6 +98,7 @@ describe('ConfirmCartByIdController', function () {
             $testCart,
             $testProduct,
             1,
+            3.21,
             new DateTimeImmutable(),
             new DateTimeImmutable()
         );

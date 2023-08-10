@@ -71,6 +71,7 @@ describe('DeleteCartByIdController', function () {
             $testCart,
             $testProduct,
             1,
+            3.21,
             new DateTimeImmutable(),
             new DateTimeImmutable()
         );

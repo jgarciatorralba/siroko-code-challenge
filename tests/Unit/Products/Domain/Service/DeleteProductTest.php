@@ -57,6 +57,7 @@ it('should throw an exception if a product is referenced by a cart item', functi
         $cart,
         $product,
         1,
+        null,
         new DateTimeImmutable(),
         new DateTimeImmutable()
     );
