@@ -30,6 +30,7 @@ final class CartItemFactory extends ModelFactory
             'cart' => CartFactory::new()->createOne(),
             'product' => ProductFactory::new()->createOne(),
             'quantity' => $this->faker()->randomNumber(1, true),
+            'subtotal' => null,
             'createdAt' => $createdAt,
             'updatedAt' => DateTimeImmutable::createFromMutable(
                 $this->faker()->dateTimeBetween(Utils::dateToString($createdAt))

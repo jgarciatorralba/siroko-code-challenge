@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Fixture\DataFixtures;
 
 use App\Carts\Domain\Cart;
+use App\Carts\Domain\CartItem;
 use App\UI\Fixture\Factory\CartItemFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -62,6 +63,7 @@ final class CartItemFixtures extends Fixture implements DependentFixtureInterfac
         /** @var Cart[] $carts */
         $carts = [];
 
+        /** @var array<string, string> $item */
         foreach (self::DATA as $key => $item) {
             $cartItemAttributes = $this->buildAttributesFromItemData($item);
             $cartItem = $cartItemFactory->createOne($cartItemAttributes);
@@ -83,6 +85,11 @@ final class CartItemFixtures extends Fixture implements DependentFixtureInterfac
         foreach ($carts as $cart) {
             if ($cart->isConfirmed()) {
                 $cart->updateSubtotal($cart->calculateSubtotal());
+
+                /** @var CartItem $cartItem */
+                foreach ($cart->items() as $cartItem) {
+                    $cartItem->updateSubtotal($cartItem->calculateSubtotal());
+                }
             }
         }
 
