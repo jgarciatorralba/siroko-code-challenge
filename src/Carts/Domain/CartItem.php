@@ -18,6 +18,7 @@ class CartItem extends AggregateRoot
         private readonly Cart $cart,
         private readonly Product $product,
         private int $quantity,
+        private ?float $subtotal,
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt
     ) {
@@ -35,6 +36,7 @@ class CartItem extends AggregateRoot
             cart: $cart,
             product: $product,
             quantity: 1,
+            subtotal: null,
             createdAt: new DateTimeImmutable(),
             updatedAt: new DateTimeImmutable()
         );
@@ -60,11 +62,29 @@ class CartItem extends AggregateRoot
         return $this->quantity;
     }
 
+    public function subtotal(): ?float
+    {
+        return $this->subtotal;
+    }
+
     public function updateQuantity(int $quantity): void
     {
         $this->quantity = $quantity;
     }
 
+    public function updateSubtotal(?float $subtotal): void
+    {
+        $this->subtotal = $subtotal;
+    }
+
+    public function calculateSubtotal(): float
+    {
+        return floatval($this->quantity() * $this->product()->price());
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(bool $isNestedArray = false): array
     {
         $carItemArray = [
@@ -72,6 +92,7 @@ class CartItem extends AggregateRoot
             'cart' => [],
             'product' => $this->product->toArray(),
             'quantity' => $this->quantity,
+            'subtotal' => $this->subtotal,
             'created_at' => Utils::dateToString($this->createdAt),
             'updated_at' => Utils::dateToString($this->updatedAt)
         ];

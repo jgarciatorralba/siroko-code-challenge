@@ -88,11 +88,11 @@ class Cart extends AggregateRoot
         }
     }
 
-    public function getItemById(Uuid $id): ?CartItem
+    public function getItemByProductId(Uuid $productId): ?CartItem
     {
         /** @var CartItem $item */
         foreach ($this->items as $item) {
-            if ($item->id()->equals($id)) {
+            if ($item->product()->id()->equals($productId)) {
                 return $item;
             }
         }
@@ -105,7 +105,7 @@ class Cart extends AggregateRoot
         $subtotal = 0;
         /** @var CartItem $item */
         foreach ($this->items() as $item) {
-            $subtotal += $item->quantity() * $item->product()->price();
+            $subtotal += $item->calculateSubtotal();
         }
 
         return $subtotal;
