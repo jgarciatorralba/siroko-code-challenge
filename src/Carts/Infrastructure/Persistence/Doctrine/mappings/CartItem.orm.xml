@@ -12,6 +12,7 @@
                 <option name="default">1</option>
             </options>
         </field>
+        <field name="subtotal" type="decimal" precision="10" scale="2" column="subtotal" nullable="true" />
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230807173750 extends AbstractMigration
+final class Version20230810173729 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20230807173750 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE cart_items (id UUID NOT NULL, cart_id UUID DEFAULT NULL, product_id UUID DEFAULT NULL, quantity INT DEFAULT 1 NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE cart_items (id UUID NOT NULL, cart_id UUID DEFAULT NULL, product_id UUID DEFAULT NULL, quantity INT DEFAULT 1 NOT NULL, subtotal NUMERIC(10, 2) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_BEF484451AD5CDBF ON cart_items (cart_id)');
         $this->addSql('CREATE INDEX IDX_BEF484454584665A ON cart_items (product_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_BEF484451AD5CDBF4584665A ON cart_items (cart_id, product_id)');
