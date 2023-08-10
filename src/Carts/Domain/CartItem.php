@@ -29,16 +29,19 @@ class CartItem extends AggregateRoot
     public static function create(
         Uuid $id,
         Cart $cart,
-        Product $product
+        Product $product,
+        int $quantity,
+        DateTimeImmutable $createdAt,
+        DateTimeImmutable $updatedAt
     ): self {
         return new self(
             id: $id,
             cart: $cart,
             product: $product,
-            quantity: 1,
+            quantity: $quantity,
             subtotal: null,
-            createdAt: new DateTimeImmutable(),
-            updatedAt: new DateTimeImmutable()
+            createdAt: $createdAt,
+            updatedAt: $updatedAt
         );
     }
 
