@@ -39,6 +39,8 @@ final class Validator
 
     private function parsePropertyPath(string $propertyPath): string
     {
-        return substr($propertyPath, 1, -1);
+        preg_match('/\[([^\[\]]+)\](?!.*\[)/', $propertyPath, $matches);
+
+        return $matches[1] ?? substr($propertyPath, 1, -1);
     }
 }
