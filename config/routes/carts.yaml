@@ -10,6 +10,11 @@ carts_get_by_id:
   requirements:
     id: '%routing.uuid%'
 
+carts_create:
+  path: /carts
+  controller: App\UI\Controller\Carts\CreateCartController
+  methods: POST
+
 carts_confirm:
   path: /carts/{id}/confirm
   controller: App\UI\Controller\Carts\ConfirmCartByIdController
