@@ -9,7 +9,7 @@ use App\Products\Domain\Contract\ProductRepository;
 use App\Products\Domain\Exception\ProductNotFoundException;
 use App\Products\Domain\Product;
 
-final class GetProductsById
+final class GetMappedProductsById
 {
     public function __construct(
         private readonly ProductRepository $productRepository
@@ -18,7 +18,7 @@ final class GetProductsById
 
     /**
      * @param Uuid[] $ids
-     * @return Product[]
+     * @return array<string, Product>
      */
     public function __invoke(array $ids): array
     {
@@ -34,6 +34,11 @@ final class GetProductsById
             );
         }
 
-        return $products;
+        $mappedProducts = [];
+        foreach ($products as $product) {
+            $mappedProducts[$product->id()->value()] = $product;
+        }
+
+        return $mappedProducts;
     }
 }

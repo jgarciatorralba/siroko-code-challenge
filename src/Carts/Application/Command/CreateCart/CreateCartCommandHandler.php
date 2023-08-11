@@ -7,15 +7,14 @@ namespace App\Carts\Application\Command\CreateCart;
 use App\Carts\Domain\Cart;
 use App\Carts\Domain\CartItem;
 use App\Carts\Domain\Service\CreateCart;
-use App\Products\Domain\Product;
-use App\Products\Domain\Service\GetProductsById;
+use App\Products\Domain\Service\GetMappedProductsById;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\ValueObject\Uuid;
 
 final class CreateCartCommandHandler implements CommandHandler
 {
     public function __construct(
-        private readonly GetProductsById $getProductsById,
+        private readonly GetMappedProductsById $getMappedProductsById,
         private readonly CreateCart $createCart
     ) {
     }
@@ -28,12 +27,7 @@ final class CreateCartCommandHandler implements CommandHandler
             $productIds[] = Uuid::fromString($commandCartItem['productId']);
         }
 
-        $products = $this->getProductsById->__invoke($productIds);
-
-        $mappedProducts = [];
-        foreach ($products as $product) {
-            $mappedProducts[$product->id()->value()] = $product;
-        }
+        $mappedProducts = $this->getMappedProductsById->__invoke($productIds);
 
         $cart = Cart::create(
             id: Uuid::fromString($command->id()),
