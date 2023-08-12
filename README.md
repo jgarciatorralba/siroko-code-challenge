@@ -25,6 +25,7 @@ This is a **Symfony** project for a **REST API** application, with a development
 - Even though an empty database named **app_db** should have been created with the installation, you can still run `sf doctrine:database:create` for good measure.
 - With the database created and the connection to the application successfully established, execute the existing migrations in folder `/etc/migrations` using the command `sf doctrine:migrations:migrate`.
 - Populate the database with demo data using the command `sf doctrine:fixtures:load`.
+- You can use [**this**](https://www.postman.com/jgarciatorralba/workspace/siroko-code-challenge/collection/11475793-058dbffb-9972-4f9c-9260-13700c2bf834?action=share&creator=11475793) Postman collection to facilitate the interaction. The two main routes are `"/api/products"` and `"/api/carts"`.
 
 ---
 
