@@ -10,23 +10,20 @@ use App\Carts\Domain\Contract\CartRepository;
 use App\Carts\Domain\Exception\CartAlreadyConfirmedException;
 use App\Carts\Domain\Exception\CartItemAlreadyExistingException;
 use App\Carts\Domain\Exception\CartItemNotFoundException;
-use App\Products\Domain\Product;
+use App\Carts\Domain\ValueObject\CartItemOperation;
+use App\Carts\Domain\ValueObject\OperationType;
 use App\Shared\Domain\ValueObject\Uuid;
 use DateTimeImmutable;
 
 final class UpdateCart
 {
-    private const OPERATION_ADD = 'add';
-    private const OPERATION_UPDATE = 'update';
-    private const OPERATION_REMOVE = 'remove';
-
     public function __construct(
         private readonly CartRepository $cartRepository
     ) {
     }
 
     /**
-     * @param array<string, mixed> $updatedData
+     * @param array<string, DateTimeImmutable|array<CartItemOperation>> $updatedData
      */
     public function __invoke(Cart $cart, array $updatedData): void
     {
@@ -42,14 +39,11 @@ final class UpdateCart
         $this->cartRepository->update($cart);
     }
 
-    /**
-     * @param array<string, string|int|Product|DateTimeImmutable> $operation
-     */
-    private function processOperation(Cart $cart, array $operation): void
+    private function processOperation(Cart $cart, CartItemOperation $operation): void
     {
-        switch ($operation['operation']) :
-            case self::OPERATION_ADD:
-                $cartItem = $cart->getItemByProductId($operation['product']->id());
+        switch ($operation->type()) :
+            case OperationType::OPERATION_ADD:
+                $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (!empty($cartItem)) {
                     throw new CartItemAlreadyExistingException(
                         $cartItem->product()->id(),
@@ -60,38 +54,38 @@ final class UpdateCart
                 $cartItem = CartItem::create(
                     Uuid::random(),
                     $cart,
-                    $operation['product'],
-                    $operation['quantity'],
-                    $operation['createdAt'],
-                    $operation['updatedAt']
+                    $operation->product(),
+                    $operation->quantity(),
+                    $operation->dateTime(),
+                    $operation->dateTime()
                 );
 
                 $cart->addItem($cartItem);
 
                 break;
-            case self::OPERATION_UPDATE:
-                $cartItem = $cart->getItemByProductId($operation['product']->id());
+            case OperationType::OPERATION_UPDATE:
+                $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (empty($cartItem)) {
                     throw new CartItemNotFoundException(
-                        $operation['product']->id(),
+                        $operation->product()->id(),
                         $cart->id()
                     );
                 }
 
-                $cartItem->updateQuantity($operation['quantity']);
-                $cartItem->updateUpdatedAt($operation['updatedAt']);
+                $cartItem->updateQuantity($operation->quantity());
+                $cartItem->updateUpdatedAt($operation->dateTime());
 
                 break;
-            case self::OPERATION_REMOVE:
-                $cartItem = $cart->getItemByProductId($operation['product']->id());
+            case OperationType::OPERATION_REMOVE:
+                $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (empty($cartItem)) {
                     throw new CartItemNotFoundException(
-                        $operation['product']->id(),
+                        $operation->product()->id(),
                         $cart->id()
                     );
                 }
 
-                $cartItem->updateDeletedAt($operation['deletedAt']);
+                $cartItem->updateDeletedAt($operation->dateTime());
 
                 break;
         endswitch;

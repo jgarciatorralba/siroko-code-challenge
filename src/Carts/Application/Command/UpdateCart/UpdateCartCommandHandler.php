@@ -6,6 +6,7 @@ namespace App\Carts\Application\Command\UpdateCart;
 
 use App\Carts\Domain\Service\GetCartById;
 use App\Carts\Domain\Service\UpdateCart;
+use App\Carts\Domain\ValueObject\CartItemOperation;
 use App\Products\Domain\Service\GetMappedProductsById;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -34,20 +35,12 @@ final class UpdateCartCommandHandler implements CommandHandler
 
         /** @var array<string, string|int> $commandCartItemOperation */
         foreach ($command->operations() as $commandCartItemOperation) {
-            $itemOperation['operation'] = $commandCartItemOperation['operation'];
-            $itemOperation['product'] = $mappedProducts[$commandCartItemOperation['productId']];
-            $itemOperation['quantity'] = $commandCartItemOperation['quantity'] ?? null;
-
-            if ($itemOperation['operation'] === 'add') {
-                $itemOperation['createdAt'] = $command->updatedAt();
-                $itemOperation['updatedAt'] = $command->updatedAt();
-            } elseif ($itemOperation['operation'] === 'update') {
-                $itemOperation['updatedAt'] = $command->updatedAt();
-            } elseif ($itemOperation['operation'] === 'remove') {
-                $itemOperation['deletedAt'] = $command->updatedAt();
-            }
-
-            $itemOperations[] = $itemOperation;
+            $itemOperations[] = CartItemOperation::create(
+                type: $commandCartItemOperation['operation'],
+                product: $mappedProducts[$commandCartItemOperation['productId']],
+                quantity: $commandCartItemOperation['quantity'] ?? null,
+                dateTime: $command->updatedAt()
+            );
         }
 
         $this->updateCart->__invoke($cart, [

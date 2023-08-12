@@ -36,7 +36,7 @@ final class Uuid implements Stringable
     {
         if (!SymfonyUuid::isValid($id)) {
             throw new InvalidArgumentException(sprintf(
-                '<%s> does not allow the value <%s>.',
+                "'%s' does not allow the value '%s'.",
                 Utils::extractClassName(Uuid::class),
                 $id
             ));
