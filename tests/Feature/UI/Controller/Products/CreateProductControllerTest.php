@@ -6,10 +6,6 @@ use App\Products\Domain\Product;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
-afterEach(function () {
-    $this->clearDatabase();
-});
-
 describe('CreateProductController', function () {
     it('should create a product and return its id', function () {
         $client = $this->getApiClient();
