@@ -12,7 +12,7 @@ beforeEach(function () {
     $testProduct = new Product(
         Uuid::random(),
         'test-cart-create',
-        1.23,
+        FakeValueGenerator::float(1, 100),
         new DateTimeImmutable(),
         new DateTimeImmutable()
     );
