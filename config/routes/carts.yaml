@@ -15,6 +15,11 @@ carts_create:
   controller: App\UI\Controller\Carts\CreateCartController
   methods: POST
 
+carts_update:
+  path: /carts
+  controller: App\UI\Controller\Carts\UpdateCartController
+  methods: PUT
+
 carts_confirm:
   path: /carts/{id}/confirm
   controller: App\UI\Controller\Carts\ConfirmCartByIdController
