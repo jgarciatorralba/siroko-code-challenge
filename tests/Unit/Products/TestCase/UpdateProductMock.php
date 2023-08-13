@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Products\TestCase;
 use App\Products\Domain\Product;
 use App\Products\Domain\Service\UpdateProduct;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use DateTimeImmutable;
 
 final class UpdateProductMock extends AbstractMock
 {
@@ -15,11 +16,14 @@ final class UpdateProductMock extends AbstractMock
         return UpdateProduct::class;
     }
 
-    public function shouldUpdateProduct(Product $product): void
+    /**
+     * @param array <string, string|float|DateTimeImmutable|null> $updatedData
+     */
+    public function shouldUpdateProduct(Product $product, array $updatedData): void
     {
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->with($product);
+            ->with($product, $updatedData);
     }
 }
