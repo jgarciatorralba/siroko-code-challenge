@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use App\Products\Domain\Exception\ProductNotFoundException;
-use App\Products\Domain\Product;
 use App\Products\Domain\Service\GetProductById;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Products\TestCase\ProductRepositoryMock;
 
 beforeEach(function () {
@@ -13,21 +13,14 @@ beforeEach(function () {
 });
 
 it('should return a product', function () {
-    $id = Uuid::random();
-    $product = Product::create(
-        id: $id,
-        name: 'get-product-unit-test',
-        price: 1.23,
-        createdAt: new DateTimeImmutable(),
-        updatedAt: new DateTimeImmutable()
-    );
+    $product = ProductMother::create();
 
-    $this->productRepositoryMock->shouldFindProductById($id, $product);
+    $this->productRepositoryMock->shouldFindProductById($product->id(), $product);
 
     $service = new GetProductById(
         productRepository: $this->productRepositoryMock->getMock()
     );
-    $result = $service->__invoke($id);
+    $result = $service->__invoke($product->id());
 
     expect($result)->toEqual($product);
 });

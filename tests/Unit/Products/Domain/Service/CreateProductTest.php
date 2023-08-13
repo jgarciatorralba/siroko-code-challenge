@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Products\Domain\Product;
 use App\Products\Domain\Service\CreateProduct;
-use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Products\TestCase\ProductRepositoryMock;
 
 beforeEach(function () {
@@ -12,13 +11,7 @@ beforeEach(function () {
 });
 
 it('should create a product', function () {
-    $product = Product::create(
-        Uuid::random(),
-        'create-product-unit-test',
-        10.00,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $product = ProductMother::create();
 
     $this->productRepositoryMock->shouldCreateProduct($product);
 

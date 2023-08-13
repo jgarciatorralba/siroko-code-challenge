@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Products\Application\Command\DeleteProductById\DeleteProductByIdCommandHandler;
 use App\Products\Domain\Exception\ProductInUseException;
 use App\Products\Domain\Exception\ProductNotFoundException;
-use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Command\DeleteProductById\DeleteProductByIdCommandMother;
 use App\Tests\Unit\Products\Domain\ProductMother;

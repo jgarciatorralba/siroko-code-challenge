@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use App\Products\Application\Query\GetProductById\GetProductByIdQueryHandler;
 use App\Products\Domain\Exception\ProductNotFoundException;
-use App\Products\Domain\Product;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Query\GetProductById\GetProductByIdQueryMother;
 use App\Tests\Unit\Products\Application\Query\GetProductById\GetProductByIdResponseMother;
 use App\Tests\Unit\Products\Domain\ProductMother;
