@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 use App\Carts\Domain\Cart;
-use App\Carts\Domain\CartItem;
-use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartItemMother;
+use App\Tests\Unit\Carts\Domain\CartMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testCart = new Cart(
+    $testCart = CartMother::create(
         Uuid::fromString('6fe80664-39e1-4e11-b3e3-b2303fa8868e'),
         null,
         false,
@@ -31,17 +32,11 @@ describe('ConfirmCartByIdController', function () {
             ->find('6fe80664-39e1-4e11-b3e3-b2303fa8868e');
         $id = $testCart->id()->value();
 
-        $testProduct = new Product(
-            Uuid::random(),
-            'test-cart-confirm',
-            3.21,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $testProduct = ProductMother::create();
         $this->persist($testProduct);
 
-        $testCartItem = new CartItem(
-            Uuid::random(),
+        $testCartItem = CartItemMother::create(
+            null,
             $testCart,
             $testProduct,
             1,
@@ -84,21 +79,15 @@ describe('ConfirmCartByIdController', function () {
             ->find('6fe80664-39e1-4e11-b3e3-b2303fa8868e');
         $id = $testCart->id()->value();
 
-        $testProduct = new Product(
-            Uuid::random(),
-            'test-cart-confirm',
-            3.21,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $testProduct = ProductMother::create();
         $this->persist($testProduct);
 
-        $testCartItem = new CartItem(
-            Uuid::random(),
+        $testCartItem = CartItemMother::create(
+            null,
             $testCart,
             $testProduct,
             1,
-            3.21,
+            null,
             new DateTimeImmutable(),
             new DateTimeImmutable()
         );
