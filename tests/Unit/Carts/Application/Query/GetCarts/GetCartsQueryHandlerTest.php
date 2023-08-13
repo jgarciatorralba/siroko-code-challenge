@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 use App\Carts\Application\Query\GetCarts\GetCartsQuery;
 use App\Carts\Application\Query\GetCarts\GetCartsQueryHandler;
-use App\Carts\Domain\Cart;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Carts\Application\Query\GetCarts\GetCartsResponseMother;
+use App\Tests\Unit\Carts\Domain\CartMother;
 use App\Tests\Unit\Carts\TestCase\GetCartsMock;
 
 beforeEach(function () {
@@ -15,21 +14,9 @@ beforeEach(function () {
 
 it('should return an array of normalized carts', function () {
     $carts = [
-        Cart::create(
-            Uuid::random(),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        ),
-        Cart::create(
-            Uuid::random(),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        ),
-        Cart::create(
-            Uuid::random(),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        )
+        CartMother::create(),
+        CartMother::create(),
+        CartMother::create()
     ];
 
     $this->getCartsMock->shouldGetAllCarts($carts);
