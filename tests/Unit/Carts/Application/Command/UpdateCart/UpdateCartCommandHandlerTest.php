@@ -10,6 +10,7 @@ use App\Carts\Domain\Exception\CartNotFoundException;
 use App\Products\Domain\Exception\ProductNotFoundException;
 use App\Tests\Unit\Carts\Application\Command\UpdateCart\UpdateCartCommandMother;
 use App\Tests\Unit\Carts\Domain\CartItemMother;
+use App\Tests\Unit\Carts\Domain\CartItemOperationMother;
 use App\Tests\Unit\Carts\Domain\CartMother;
 use App\Tests\Unit\Carts\TestCase\GetCartByIdMock;
 use App\Tests\Unit\Carts\TestCase\UpdateCartMock;
@@ -38,15 +39,24 @@ it('should update a cart', function () {
 
     $cart->addItem($cartItem);
 
+    $cartItemOperation = CartItemOperationMother::create(
+        'update',
+        $product,
+        null,
+        null,
+        null
+    );
+
     $command = UpdateCartCommandMother::create(
         $cart->id()->value(),
         [
             [
-                'operation' => FakeValueGenerator::randomElement(['update', 'remove']),
-                'productId' => $product->id()->value(),
-                'quantity' => FakeValueGenerator::integer(1, 10)
+                'operation' => $cartItemOperation->type(),
+                'productId' => $cartItemOperation->product()->id()->value(),
+                'quantity' => $cartItemOperation->quantity()
             ]
-        ]
+        ],
+        $cartItemOperation->dateTime()
     );
 
     $this->getCartByIdMock->shouldReturnCart($cart->id(), $cart);
@@ -54,7 +64,10 @@ it('should update a cart', function () {
         [$product->id()],
         [$product->id()->value() => $product]
     );
-    $this->updateCartMock->shouldUpdateCart($cart);
+    $this->updateCartMock->shouldUpdateCart($cart, [
+        'updatedAt' => $command->updatedAt(),
+        'itemOperations' => [$cartItemOperation]
+    ]);
 
     $handler = new UpdateCartCommandHandler(
         getCartById: $this->getCartByIdMock->getMock(),

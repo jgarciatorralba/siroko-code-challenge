@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Carts\TestCase;
 
 use App\Carts\Domain\Cart;
+use App\Carts\Domain\ValueObject\CartItemOperation;
 use App\Carts\Domain\Exception\CartAlreadyConfirmedException;
 use App\Carts\Domain\Exception\CartItemAlreadyExistingException;
 use App\Carts\Domain\Exception\CartItemNotFoundException;
 use App\Carts\Domain\Service\UpdateCart;
 use App\Products\Domain\Product;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use DateTimeImmutable;
 
 final class UpdateCartMock extends AbstractMock
 {
@@ -19,12 +21,15 @@ final class UpdateCartMock extends AbstractMock
         return UpdateCart::class;
     }
 
-    public function shouldUpdateCart(Cart $cart): void
+    /**
+     * @param array<string, DateTimeImmutable|array<CartItemOperation>> $updatedData
+     */
+    public function shouldUpdateCart(Cart $cart, array $updatedData): void
     {
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->with($cart);
+            ->with($cart, $updatedData);
     }
 
     public function shouldThrowCartAlreadyConfirmedException(Cart $cart): void
