@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Carts\TestCase;
 
 use App\Carts\Domain\Contract\CartRepository;
 use App\Carts\Domain\Cart;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
 final class CartRepositoryMock extends AbstractMock
@@ -32,5 +33,23 @@ final class CartRepositoryMock extends AbstractMock
             ->expects($this->once())
             ->method('findAll')
             ->willReturn([]);
+    }
+
+    public function shouldFindCartById(Uuid $id, Cart $cart): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('findOneById')
+            ->with($id)
+            ->willReturn($cart);
+    }
+
+    public function shouldNotFindCartById(Uuid $id): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('findOneById')
+            ->with($id)
+            ->willReturn(null);
     }
 }
