@@ -9,7 +9,7 @@ use DateTimeImmutable;
 
 final class CreateCartCommand implements Command
 {
-    /** @param array<string, string|int> $items */
+    /** @param array<array<string, string|int>> $items */
     public function __construct(
         private readonly string $id,
         private readonly array $items,
@@ -23,7 +23,7 @@ final class CreateCartCommand implements Command
         return $this->id;
     }
 
-    /** @return array<string, string|int> */
+    /** @return array<array<string, string|int>> */
     public function items(): array
     {
         return $this->items;
