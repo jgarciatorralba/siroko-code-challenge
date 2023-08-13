@@ -52,4 +52,12 @@ final class CartRepositoryMock extends AbstractMock
             ->with($id)
             ->willReturn(null);
     }
+
+    public function shouldCreateCart(Cart $cart): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('create')
+            ->with($cart);
+    }
 }
