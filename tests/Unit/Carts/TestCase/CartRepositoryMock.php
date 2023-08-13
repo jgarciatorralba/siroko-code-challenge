@@ -61,6 +61,22 @@ final class CartRepositoryMock extends AbstractMock
             ->with($cart);
     }
 
+    public function shouldUpdateCart(Cart $cart): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('update')
+            ->with($cart);
+    }
+
+    public function shouldNotUpdateCart(Cart $cart): void
+    {
+        $this->mock
+            ->expects($this->never())
+            ->method('update')
+            ->with($cart);
+    }
+
     public function shouldDeleteCart(Cart $cart): void
     {
         $this->mock
