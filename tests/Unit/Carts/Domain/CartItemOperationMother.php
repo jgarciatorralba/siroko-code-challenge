@@ -19,7 +19,7 @@ final class CartItemOperationMother
         ?DateTimeImmutable $dateTime = null
     ): CartItemOperation {
         return new CartItemOperation(
-            type: $type ?? FakeValueGenerator::string(),
+            type: $type ?? FakeValueGenerator::randomElement(['add', 'update', 'remove']),
             product: $product ?? ProductMother::create(),
             quantity: $quantity ?? FakeValueGenerator::integer(1),
             dateTime: $dateTime ?? FakeValueGenerator::dateTime()
