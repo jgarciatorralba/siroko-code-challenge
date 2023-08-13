@@ -265,7 +265,9 @@ describe('UpdateCartController', function () {
             ->and($decodedResponse)->toBeArray()
             ->and($decodedResponse)->toBe([
                 'code' => 'cart_item_already_existing',
-                'error' => "Cart item for product with id '$testProductId' already exists in cart with id '$testCartId'."
+                'error' => "Cart item for product with id '"
+                    . $testProductId
+                    . "' already exists in cart with id '$testCartId'."
             ]);
     })->throws(ClientException::class);
 
@@ -305,7 +307,9 @@ describe('UpdateCartController', function () {
             ->and($decodedResponse)->toBeArray()
             ->and($decodedResponse)->toBe([
                 'code' => 'cart_item_not_found',
-                'error' => "Cart item for product with id '$newTestProductId' could not be found in cart with id '$testCartId'."
+                'error' => "Cart item for product with id '"
+                    . $newTestProductId
+                    . "' could not be found in cart with id '$testCartId'."
             ]);
     })->throws(ClientException::class);
 
@@ -345,7 +349,9 @@ describe('UpdateCartController', function () {
             ->and($decodedResponse)->toBeArray()
             ->and($decodedResponse)->toBe([
                 'code' => 'cart_item_not_found',
-                'error' => "Cart item for product with id '$newTestProductId' could not be found in cart with id '$testCartId'."
+                'error' => "Cart item for product with id '"
+                    . $newTestProductId
+                    . "' could not be found in cart with id '$testCartId'."
             ]);
     })->throws(ClientException::class);
 
