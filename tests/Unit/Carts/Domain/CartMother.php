@@ -20,7 +20,7 @@ final class CartMother
     ): Cart {
         return new Cart(
             id: $id ?? FakeValueGenerator::uuid(),
-            subtotal: $subtotal ?? FakeValueGenerator::float(0, 100),
+            subtotal: $subtotal ?? null,
             isConfirmed: $isConfirmed ?? FakeValueGenerator::boolean(),
             createdAt: $createdAt ?? FakeValueGenerator::dateTime(),
             updatedAt: $updatedAt ?? FakeValueGenerator::dateTime()

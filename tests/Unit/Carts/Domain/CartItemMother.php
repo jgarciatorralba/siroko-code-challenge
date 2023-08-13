@@ -28,7 +28,7 @@ final class CartItemMother
             cart: $cart ?? CartMother::create(),
             product: $product ?? ProductMother::create(),
             quantity: $quantity ?? FakeValueGenerator::integer(1),
-            subtotal: $subtotal ?? FakeValueGenerator::float(0, 100),
+            subtotal: $subtotal ?? null,
             createdAt: $createdAt ?? FakeValueGenerator::dateTime(),
             updatedAt: $updatedAt ?? FakeValueGenerator::dateTime()
         );
