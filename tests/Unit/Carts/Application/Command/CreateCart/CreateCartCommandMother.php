@@ -33,7 +33,7 @@ final class CreateCartCommandMother
     {
         return self::create(
             id: $cart->id()->value(),
-            items: self::mapItemsToArray($cart->items()->toArray()),
+            items: self::mapItemsToArrays($cart->items()->toArray()),
             createdAt: $cart->createdAt(),
             updatedAt: $cart->updatedAt()
         );
@@ -43,7 +43,7 @@ final class CreateCartCommandMother
      * @param CartItem[] $items
      * @return array<array<string, string|int>>
      */
-    private static function mapItemsToArray(array $items): array
+    private static function mapItemsToArrays(array $items): array
     {
         return array_map(
             fn (CartItem $item) => [
