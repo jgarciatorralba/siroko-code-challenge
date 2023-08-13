@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Products\Domain\Product;
+use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,8 +12,8 @@ describe('CreateProductController', function () {
         $client = $this->getApiClient();
         $response = $client->request('POST', '/api/products', [
             'body' => json_encode([
-                'name' => 'test-product-create',
-                'price' => 11.11
+                'name' => FakeValueGenerator::string(),
+                'price' => FakeValueGenerator::float(1, 100)
             ])
         ]);
         $decodedResponse = $response->toArray();
@@ -34,7 +35,7 @@ describe('CreateProductController', function () {
         $response = $client->request('POST', '/api/products', [
             'body' => json_encode([
                 'name' => '',
-                'price' => 11.11
+                'price' => FakeValueGenerator::float(1, 100)
             ])
         ]);
         $decodedResponse = $response->toArray();

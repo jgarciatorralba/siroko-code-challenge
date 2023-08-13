@@ -2,18 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Products\Domain\Product;
-use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-product-create',
-        3.21,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testProduct = ProductMother::create();
 
     $this->persist($testProduct);
 });

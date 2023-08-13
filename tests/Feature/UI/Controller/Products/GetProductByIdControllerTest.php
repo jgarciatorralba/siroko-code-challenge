@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-product-create',
-        3.21,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testProduct = ProductMother::create(null, 'test-product-get-by-id', null, null, null);
 
     $this->persist($testProduct);
 });
@@ -26,7 +21,7 @@ afterEach(function () {
 describe('GetProductByIdController', function () {
     it('should return a serialized product given its id', function () {
         $testProduct = $this->repository(Product::class)
-            ->findOneBy(['name' => 'test-product-create']);
+            ->findOneBy(['name' => 'test-product-get-by-id']);
         $id = $testProduct->id()->value();
 
         $client = $this->getApiClient();

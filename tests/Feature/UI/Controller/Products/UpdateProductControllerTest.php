@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
+use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-product-update',
-        5.55,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testProduct = ProductMother::create(null, 'test-product-update', null, null, null);
 
     $this->persist($testProduct);
 });
@@ -33,8 +29,8 @@ describe('UpdateProductController', function () {
         $response = $client->request('PUT', '/api/products', [
             'body' => json_encode([
                 'id' => $id,
-                'name' => 'test-product-update-edited',
-                'price' => 66.66
+                'name' => FakeValueGenerator::string(),
+                'price' => FakeValueGenerator::float(1, 100)
             ])
         ]);
         $decodedResponse = $response->toArray();
@@ -51,8 +47,8 @@ describe('UpdateProductController', function () {
         $response = $client->request('PUT', '/api/products', [
             'body' => json_encode([
                 'id' => $id,
-                'name' => 'test-product-update-edited',
-                'price' => 66.66
+                'name' => FakeValueGenerator::string(),
+                'price' => FakeValueGenerator::float(1, 100)
             ])
         ]);
         $decodedResponse = $response->toArray();
@@ -76,7 +72,7 @@ describe('UpdateProductController', function () {
             'body' => json_encode([
                 'id' => $id,
                 'name' => '',
-                'price' => 66.66
+                'price' => FakeValueGenerator::float(1, 100)
             ])
         ]);
         $decodedResponse = $response->toArray();
@@ -103,8 +99,8 @@ describe('UpdateProductController', function () {
         $response = $client->request('PUT', '/api/products', [
             'body' => json_encode([
                 'id' => $id,
-                'name' => 'test-product-update-edited',
-                'price' => 'abc'
+                'name' => FakeValueGenerator::string(),
+                'price' => FakeValueGenerator::string()
             ])
         ]);
         $decodedResponse = $response->toArray();
@@ -131,7 +127,7 @@ describe('UpdateProductController', function () {
         $response = $client->request('PUT', '/api/products', [
             'body' => json_encode([
                 'id' => $id,
-                'name' => 'test-product-update-edited',
+                'name' => FakeValueGenerator::string(),
                 'price' => 0
             ])
         ]);

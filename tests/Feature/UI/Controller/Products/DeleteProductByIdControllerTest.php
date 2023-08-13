@@ -2,21 +2,16 @@
 
 declare(strict_types=1);
 
-use App\Carts\Domain\Cart;
-use App\Carts\Domain\CartItem;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartItemMother;
+use App\Tests\Unit\Carts\Domain\CartMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-product-delete',
-        3.21,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testProduct = ProductMother::create(null, 'test-product-delete', null, null, null);
 
     $this->persist($testProduct);
 });
@@ -59,23 +54,17 @@ describe('DeleteProductByIdController', function () {
             ->findOneBy(['name' => 'test-product-delete']);
         $id = $testProduct->id()->value();
 
-        $testCart = new Cart(
-            Uuid::random(),
-            null,
-            false,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $testCart = CartMother::create();
         $this->persist($testCart);
 
-        $testCartItem = new CartItem(
-            Uuid::random(),
+        $testCartItem = CartItemMother::create(
+            null,
             $testCart,
             $testProduct,
             1,
             null,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
+            null,
+            null
         );
         $this->persist($testCartItem);
 
