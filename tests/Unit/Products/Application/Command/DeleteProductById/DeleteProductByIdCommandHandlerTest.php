@@ -8,6 +8,7 @@ use App\Products\Domain\Exception\ProductNotFoundException;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Command\DeleteProductById\DeleteProductByIdCommandMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Products\TestCase\DeleteProductMock;
 use App\Tests\Unit\Products\TestCase\GetProductByIdMock;
 
@@ -17,14 +18,7 @@ beforeEach(function () {
 });
 
 it('should delete a product', function () {
-    $now = new DateTimeImmutable();
-    $product = Product::create(
-        Uuid::random(),
-        'delete-product-unit-test',
-        10.10,
-        $now,
-        $now
-    );
+    $product = ProductMother::create();
     $command = DeleteProductByIdCommandMother::createFromProduct($product);
 
     $this->getProductByIdMock->shouldReturnProduct($product->id(), $product);
@@ -51,14 +45,7 @@ it('should throw an exception if a product is not found', function () {
 })->throws(ProductNotFoundException::class);
 
 it('should throw an exception if a product is referenced by a cart item', function () {
-    $now = new DateTimeImmutable();
-    $product = Product::create(
-        Uuid::random(),
-        'delete-product-unit-test',
-        10.10,
-        $now,
-        $now
-    );
+    $product = ProductMother::create();
     $command = DeleteProductByIdCommandMother::createFromProduct($product);
 
     $this->getProductByIdMock->shouldReturnProduct($product->id(), $product);

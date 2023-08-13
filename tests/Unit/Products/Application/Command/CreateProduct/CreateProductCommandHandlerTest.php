@@ -3,9 +3,8 @@
 declare(strict_types=1);
 
 use App\Products\Application\Command\CreateProduct\CreateProductCommandHandler;
-use App\Products\Domain\Product;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Command\CreateProduct\CreateProductCommandMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Products\TestCase\CreateProductMock;
 
 beforeEach(function () {
@@ -13,14 +12,7 @@ beforeEach(function () {
 });
 
 it('should create a product', function () {
-    $now = new DateTimeImmutable();
-    $product = Product::create(
-        Uuid::random(),
-        'create-product-unit-test',
-        10.10,
-        $now,
-        $now
-    );
+    $product = ProductMother::create();
     $command = CreateProductCommandMother::createFromProduct($product);
 
     $this->createProductMock->shouldCreateProduct($product);

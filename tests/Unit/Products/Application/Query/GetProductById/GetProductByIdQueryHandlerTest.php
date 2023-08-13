@@ -8,6 +8,7 @@ use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Products\Application\Query\GetProductById\GetProductByIdQueryMother;
 use App\Tests\Unit\Products\Application\Query\GetProductById\GetProductByIdResponseMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Products\TestCase\GetProductByIdMock;
 
 beforeEach(function () {
@@ -15,13 +16,7 @@ beforeEach(function () {
 });
 
 it('should return a normalized product given its id', function () {
-    $product = Product::create(
-        id: Uuid::random(),
-        name: 'get-product-unit-test',
-        price: 1.23,
-        createdAt: new DateTimeImmutable(),
-        updatedAt: new DateTimeImmutable()
-    );
+    $product = ProductMother::create();
 
     $query = GetProductByIdQueryMother::create(
         id: $product->id()->value()
@@ -39,13 +34,7 @@ it('should return a normalized product given its id', function () {
 });
 
 it('should throw an exception if a product is not found', function () {
-    $product = Product::create(
-        id: Uuid::random(),
-        name: 'get-product-unit-test',
-        price: 1.23,
-        createdAt: new DateTimeImmutable(),
-        updatedAt: new DateTimeImmutable()
-    );
+    $product = ProductMother::create();
 
     $query = GetProductByIdQueryMother::create(
         id: $product->id()->value()
