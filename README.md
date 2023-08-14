@@ -10,8 +10,9 @@ This is a **Symfony** project for a **REST API** application, with a development
 
 ### Side notes
 
-- For the simplicity of the project, it is assumed that prices will always be in Euros and there is no need to keep a record of product prices.
-- I had an issue while running tests with packages **Faker** and **Bypass Finals** which I couldn't resolve. Thus, I couldn't use class `FakeValueGenerator` and I had to manually create dummy data for every unit test.
+- For the sake of simplicity in the project, it is assumed that:
+  - The currency will always be in Euros.
+  - There is no need to keep a record of product prices.
 
 ---
 
