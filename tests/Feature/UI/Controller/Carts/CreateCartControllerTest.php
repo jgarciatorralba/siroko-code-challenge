@@ -3,19 +3,13 @@
 declare(strict_types=1);
 
 use App\Products\Domain\Product;
-use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-cart-create',
-        FakeValueGenerator::float(1, 100),
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testProduct = ProductMother::create(null, 'test-cart-create', null, null, null);
 
     $this->persist($testProduct);
 });
@@ -35,7 +29,7 @@ describe('CreateCartController', function () {
                 'items' => [
                     [
                         'productId' => $testProduct->id()->value(),
-                        'quantity' => 1
+                        'quantity' => FakeValueGenerator::integer(1)
                     ]
                 ]
             ])
@@ -98,7 +92,7 @@ describe('CreateCartController', function () {
     })->throws(ClientException::class);
 
     it('should throw an exception if a product is not found', function () {
-        $id = Uuid::random()->value();
+        $id = FakeValueGenerator::uuid()->value();
 
         $client = $this->getApiClient();
         $response = $client->request('POST', '/api/carts', [

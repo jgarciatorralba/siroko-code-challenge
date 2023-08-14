@@ -3,14 +3,16 @@
 declare(strict_types=1);
 
 use App\Carts\Domain\Cart;
-use App\Carts\Domain\CartItem;
-use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartItemMother;
+use App\Tests\Unit\Carts\Domain\CartMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
+use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testCart = new Cart(
+    $testCart = CartMother::create(
         Uuid::fromString('6fe80664-39e1-4e11-b3e3-b2303fa8868e'),
         null,
         false,
@@ -37,7 +39,7 @@ describe('DeleteCartByIdController', function () {
     });
 
     it('should throw an exception if a cart is not found', function () {
-        $id = Uuid::random()->value();
+        $id = FakeValueGenerator::uuid()->value();
 
         $client = $this->getApiClient();
         $response = $client->request('DELETE', "/api/carts/$id");
@@ -57,24 +59,10 @@ describe('DeleteCartByIdController', function () {
             ->find('6fe80664-39e1-4e11-b3e3-b2303fa8868e');
         $id = $testCart->id()->value();
 
-        $testProduct = new Product(
-            Uuid::random(),
-            'test-cart-delete',
-            3.21,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $testProduct = ProductMother::create();
         $this->persist($testProduct);
 
-        $testCartItem = new CartItem(
-            Uuid::random(),
-            $testCart,
-            $testProduct,
-            1,
-            3.21,
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $testCartItem = CartItemMother::create(null, $testCart, $testProduct, null, null, null, null);
         $this->persist($testCartItem);
 
         $testCart->updateSubtotal($testCart->calculateSubtotal());

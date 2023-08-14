@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-use App\Carts\Domain\Cart;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartMother;
+use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testCart = new Cart(
+    $testCart = CartMother::create(
         Uuid::fromString('6fe80664-39e1-4e11-b3e3-b2303fa8868e'),
         null,
         false,
@@ -55,7 +56,7 @@ describe('GetCartByIdController', function () {
     });
 
     it('should throw an exception if a cart is not found', function () {
-        $id = Uuid::random()->value();
+        $id = FakeValueGenerator::uuid()->value();
 
         $client = $this->getApiClient();
         $response = $client->request('GET', "/api/carts/$id");

@@ -2,16 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Carts\Domain\Cart;
-use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartMother;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testCart = Cart::create(
-        Uuid::random(),
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
+    $testCart = CartMother::create();
 
     $this->persist($testCart);
 });

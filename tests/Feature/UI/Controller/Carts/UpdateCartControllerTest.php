@@ -3,44 +3,29 @@
 declare(strict_types=1);
 
 use App\Carts\Domain\Cart;
-use App\Carts\Domain\CartItem;
 use App\Products\Domain\Product;
 use App\Shared\Domain\ValueObject\Uuid;
+use App\Tests\Unit\Carts\Domain\CartItemMother;
+use App\Tests\Unit\Carts\Domain\CartMother;
+use App\Tests\Unit\Products\Domain\ProductMother;
 use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $testProduct = new Product(
-        Uuid::random(),
-        'test-cart-update',
-        FakeValueGenerator::float(1, 100),
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
-
+    $testProduct = ProductMother::create(null, 'test-cart-update', null, null, null);
     $this->persist($testProduct);
 
-    $testCart = new Cart(
+    $testCart = CartMother::create(
         Uuid::fromString('6fe80664-39e1-4e11-b3e3-b2303fa8868e'),
         null,
         false,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
+        null,
+        null
     );
-
     $this->persist($testCart);
 
-    $testCartItem = new CartItem(
-        Uuid::random(),
-        $testCart,
-        $testProduct,
-        FakeValueGenerator::integer(1, 5),
-        null,
-        new DateTimeImmutable(),
-        new DateTimeImmutable()
-    );
-
+    $testCartItem = CartItemMother::create(null, $testCart, $testProduct, null, null, null, null);
     $this->persist($testCartItem);
 });
 
@@ -50,14 +35,7 @@ afterEach(function () {
 
 describe('UpdateCartController', function () {
     it('should add a new item to a cart', function () {
-        $newTestProduct = new Product(
-            Uuid::random(),
-            FakeValueGenerator::string(),
-            FakeValueGenerator::float(1, 100),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
-
+        $newTestProduct = ProductMother::create();
         $this->persist($newTestProduct);
 
         $testCart = $this->repository(Cart::class)
@@ -98,7 +76,7 @@ describe('UpdateCartController', function () {
                     [
                         'operation' => 'update',
                         'productId' => $testProduct->id()->value(),
-                        'quantity' => 10
+                        'quantity' => FakeValueGenerator::integer(1)
                     ]
                 ]
             ])
@@ -158,7 +136,7 @@ describe('UpdateCartController', function () {
                 'id' => $testCartId,
                 'operations' => [
                     [
-                        'operation' => 'update',
+                        'operation' => FakeValueGenerator::randomElement(['add', 'update', 'remove']),
                         'productId' => $testProduct->id()->value(),
                         'quantity' => FakeValueGenerator::integer()
                     ]
@@ -188,9 +166,9 @@ describe('UpdateCartController', function () {
                 'id' => $id,
                 'operations' => [
                     [
-                        'operation' => 'update',
+                        'operation' => FakeValueGenerator::randomElement(['add', 'update', 'remove']),
                         'productId' => $testProduct->id()->value(),
-                        'quantity' => 10
+                        'quantity' => FakeValueGenerator::integer()
                     ]
                 ]
             ])
@@ -218,9 +196,9 @@ describe('UpdateCartController', function () {
                 'id' => $testCart->id()->value(),
                 'operations' => [
                     [
-                        'operation' => 'update',
+                        'operation' => FakeValueGenerator::randomElement(['add', 'update', 'remove']),
                         'productId' => $id,
-                        'quantity' => 10
+                        'quantity' => FakeValueGenerator::integer()
                     ]
                 ]
             ])
@@ -253,7 +231,7 @@ describe('UpdateCartController', function () {
                     [
                         'operation' => 'add',
                         'productId' => $testProductId,
-                        'quantity' => 10
+                        'quantity' => FakeValueGenerator::integer()
                     ]
                 ]
             ])
@@ -276,13 +254,7 @@ describe('UpdateCartController', function () {
             ->find('6fe80664-39e1-4e11-b3e3-b2303fa8868e');
         $testCartId = $testCart->id()->value();
 
-        $newTestProduct = new Product(
-            Uuid::random(),
-            FakeValueGenerator::string(),
-            FakeValueGenerator::float(1, 100),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $newTestProduct = ProductMother::create();
         $newTestProductId = $newTestProduct->id()->value();
 
         $this->persist($newTestProduct);
@@ -318,13 +290,7 @@ describe('UpdateCartController', function () {
             ->find('6fe80664-39e1-4e11-b3e3-b2303fa8868e');
         $testCartId = $testCart->id()->value();
 
-        $newTestProduct = new Product(
-            Uuid::random(),
-            FakeValueGenerator::string(),
-            FakeValueGenerator::float(1, 100),
-            new DateTimeImmutable(),
-            new DateTimeImmutable()
-        );
+        $newTestProduct = ProductMother::create();
         $newTestProductId = $newTestProduct->id()->value();
 
         $this->persist($newTestProduct);
@@ -336,8 +302,7 @@ describe('UpdateCartController', function () {
                 'operations' => [
                     [
                         'operation' => 'remove',
-                        'productId' => $newTestProductId,
-                        'quantity' => FakeValueGenerator::integer(1)
+                        'productId' => $newTestProductId
                     ]
                 ]
             ])
@@ -368,7 +333,7 @@ describe('UpdateCartController', function () {
                 'id' => $testCart->id()->value(),
                 'operations' => [
                     [
-                        'operation' => 'add',
+                        'operation' => FakeValueGenerator::randomElement(['add', 'update']),
                         'productId' => $testProduct->id()->value(),
                         'quantity' => FakeValueGenerator::integer(1)
                     ],
@@ -407,7 +372,7 @@ describe('UpdateCartController', function () {
                 'id' => $testCart->id()->value(),
                 'operations' => [
                     [
-                        'operation' => 'add',
+                        'operation' => FakeValueGenerator::randomElement(['add', 'update']),
                         'productId' => $testProduct->id()->value()
                     ]
                 ]
