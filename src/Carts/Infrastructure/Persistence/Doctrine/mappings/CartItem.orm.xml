@@ -34,7 +34,7 @@
         </many-to-one>
 
         <unique-constraints>
-            <unique-constraint columns="cart_id,product_id" />
+            <unique-constraint columns="cart_id,product_id,deleted_at" />
         </unique-constraints>
     </entity>
 </doctrine-mapping>

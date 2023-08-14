@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230810173729 extends AbstractMigration
+final class Version20230814082852 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,7 +23,7 @@ final class Version20230810173729 extends AbstractMigration
         $this->addSql('CREATE TABLE cart_items (id UUID NOT NULL, cart_id UUID DEFAULT NULL, product_id UUID DEFAULT NULL, quantity INT DEFAULT 1 NOT NULL, subtotal NUMERIC(10, 2) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_BEF484451AD5CDBF ON cart_items (cart_id)');
         $this->addSql('CREATE INDEX IDX_BEF484454584665A ON cart_items (product_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_BEF484451AD5CDBF4584665A ON cart_items (cart_id, product_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_BEF484451AD5CDBF4584665A4AF38FD1 ON cart_items (cart_id, product_id, deleted_at)');
         $this->addSql('COMMENT ON COLUMN cart_items.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN cart_items.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN cart_items.deleted_at IS \'(DC2Type:datetime_immutable)\'');
