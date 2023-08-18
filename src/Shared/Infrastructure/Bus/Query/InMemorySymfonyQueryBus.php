@@ -27,7 +27,7 @@ class InMemorySymfonyQueryBus implements QueryBus
             $stamp = $this->queryBus->dispatch($query)->last(HandledStamp::class);
 
             return $stamp->getResult();
-        } catch (NoHandlerForMessageException $exception) {
+        } catch (NoHandlerForMessageException) {
             throw new QueryNotRegisteredException($query);
         } catch (HandlerFailedException $exception) {
             throw $exception->getPrevious() ?? $exception;

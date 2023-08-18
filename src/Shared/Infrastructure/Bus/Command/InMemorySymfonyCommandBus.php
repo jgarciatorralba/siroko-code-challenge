@@ -22,7 +22,7 @@ class InMemorySymfonyCommandBus implements CommandBus
     {
         try {
             $this->commandBus->dispatch($command);
-        } catch (NoHandlerForMessageException $exception) {
+        } catch (NoHandlerForMessageException) {
             throw new CommandNotRegisteredException($command);
         } catch (HandlerFailedException $exception) {
             throw $exception->getPrevious() ?? $exception;
