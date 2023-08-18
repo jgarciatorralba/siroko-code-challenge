@@ -42,7 +42,7 @@ final class UpdateCart
     private function processOperation(Cart $cart, CartItemOperation $operation): void
     {
         switch ($operation->type()) :
-            case OperationType::OPERATION_ADD:
+            case OperationType::ADD->value:
                 $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (!empty($cartItem)) {
                     throw new CartItemAlreadyExistingException(
@@ -63,7 +63,7 @@ final class UpdateCart
                 $cart->addItem($cartItem);
 
                 break;
-            case OperationType::OPERATION_UPDATE:
+            case OperationType::UPDATE->value:
                 $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (empty($cartItem)) {
                     throw new CartItemNotFoundException(
@@ -76,7 +76,7 @@ final class UpdateCart
                 $cartItem->updateUpdatedAt($operation->dateTime());
 
                 break;
-            case OperationType::OPERATION_REMOVE:
+            case OperationType::REMOVE->value:
                 $cartItem = $cart->getItemByProductId($operation->product()->id());
                 if (empty($cartItem)) {
                     throw new CartItemNotFoundException(
